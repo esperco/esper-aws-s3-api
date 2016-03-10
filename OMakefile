@@ -6,7 +6,7 @@ FILES[] =
   aws_s3_api_v
   aws_s3_api
 
-Atdgen(aws_s3-api, -j-std)
+Atdgen(aws_s3_api, -j-std)
 OCamlLibrary(aws-s3-api, $(FILES))
 Meta(aws-s3-api)
 
