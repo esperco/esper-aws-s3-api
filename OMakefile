@@ -1,0 +1,17 @@
+OCAML_LIBS = $(OCAML_LIBS_aws-s3-api)
+
+FILES[] =
+  aws_s3_api_t
+  aws_s3_api_j
+  aws_s3_api_v
+  aws_s3_api
+
+Atdgen(aws_s3-api, -j-std)
+OCamlLibrary(aws-s3-api, $(FILES))
+Meta(aws-s3-api)
+
+.DEFAULT: META aws-s3-api.cma aws-s3-api.cmxa
+
+.PHONY: clean
+clean:
+  rm -f *.o *.a *.cm* *~ *.annot *.run *.opt META $(ATDGEN_OUTFILES)
