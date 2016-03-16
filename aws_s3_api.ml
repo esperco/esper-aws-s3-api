@@ -86,7 +86,7 @@ let put_object ~param ~path ~content_type contents =
   Http.post ~headers url ~body:contents >>= fun resp ->
   return (handle_http_response ignore resp)
 
-let delete_object ~param ~path contents =
+let delete_object ~param ~path =
   let url, headers = make_url_and_headers ~param ~method_:`DELETE ~path () in
   Http.delete ~headers url >>= fun resp ->
   return (handle_http_response ignore resp)
