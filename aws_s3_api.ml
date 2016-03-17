@@ -36,6 +36,7 @@ let make_url_and_headers
   let url = Uri.make ~scheme:"https" ~host ~path ~query () in
   let headers =
     Aws_call.make_headers
+      ~access_key_id: param.access_key_id
       ~secret_access_key: param.secret_access_key
       ~content_type
       ~http_request_method: method_
