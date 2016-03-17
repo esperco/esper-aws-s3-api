@@ -73,21 +73,26 @@ let handle_http_response parse_response_body ((_, _, body) as resp) =
       Http_exn.not_found "Resource not found"
 
 let get_object ~param ~path =
-  let url, headers = make_url_and_headers ~param ~method_:`GET ~path () in
+  let url, headers =
+    make_url_and_headers ~param ~method_:`GET ~path () in
   Http.get ~headers url >>= fun resp ->
   return (handle_http_response (fun s -> s) resp)
 
 let opt_get_object ~param ~path =
-  let url, headers = make_url_and_headers ~param ~method_:`GET ~path () in
+  let url, headers =
+    make_url_and_headers ~param ~method_:`GET ~path () in
   Http.get ~headers url >>= fun resp ->
   return (handle_opt_http_response (fun s -> s) resp)
 
 let put_object ~param ~path ~content_type contents =
-  let url, headers = make_url_and_headers ~param ~method_:`PUT ~path () in
-  Http.post ~headers url ~body:contents >>= fun resp ->
+  let body = contents in
+  let url, headers =
+    make_url_and_headers ~param ~method_:`PUT ~path ~body () in
+  Http.put ~headers url ~body >>= fun resp ->
   return (handle_http_response ignore resp)
 
 let delete_object ~param ~path =
-  let url, headers = make_url_and_headers ~param ~method_:`DELETE ~path () in
+  let url, headers =
+    make_url_and_headers ~param ~method_:`DELETE ~path () in
   Http.delete ~headers url >>= fun resp ->
   return (handle_http_response ignore resp)
