@@ -56,7 +56,8 @@ let handle_opt_http_response
     (resp_status, resp_headers, resp_body) =
   match resp_status with
   | `OK -> Some (parse_response_body resp_body)
-  | `Not_found -> None
+  | `Not_found
+  | `No_content -> None
   | `Bad_request ->
       logf `Error "Bad AWS S3 request. Response body: %s" resp_body;
       failwith "Bad AWS S3 request"
@@ -96,3 +97,9 @@ let delete_object ~param ~path =
     make_url_and_headers ~param ~method_:`DELETE ~path () in
   Http.delete ~headers url >>= fun resp ->
   return (handle_http_response ignore resp)
+
+let opt_delete_object ~param ~path =
+  let url, headers =
+    make_url_and_headers ~param ~method_:`DELETE ~path () in
+  Http.delete ~headers url >>= fun resp ->
+  return (handle_opt_http_response ignore resp)
