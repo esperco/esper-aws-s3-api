@@ -71,7 +71,7 @@ let handle_http_response parse_response_body ((_, _, body) as resp) =
   | Some x -> x
   | None ->
       logf `Error "AWS S3 object not found. Response body: %s" body;
-      Http_exn.not_found "Resource not found"
+      Http_exn.not_found `Not_found "Resource not found"
 
 let get_object ~param ~path =
   let url, headers =
