@@ -8,4 +8,5 @@ It won't build as is but most of the code was used in production.
 Description
 -----------
 
-Sorry, no description yet :cry:
+OCaml/Lwt client to Amazon S3 (cloud file storage). Supports only basic 
+operations like putting, getting, and deleting files.
